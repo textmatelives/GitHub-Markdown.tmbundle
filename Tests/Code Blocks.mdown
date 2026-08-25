@@ -1,0 +1,38 @@
+Preview this file to check the Rouge code paths. Every block below must render
+as `<pre class="highlight">`; none may raise.
+
+The first three reach `Rouge::Lexer.lookup_fancy`, which called `CGI.parse`
+until rouge 4.6.1 — the path that broke under Ruby 4.0.
+
+
+# No language tag
+
+```
+puts "hello"
+```
+
+
+# Indented (redcarpet always passes nil here)
+
+    puts "hello"
+
+
+# Lexer options
+
+```erb?parent=html
+<%= 1 + 1 %>
+```
+
+
+# Tagged — highlighted, and never touched CGI
+
+```ruby
+puts "hello"
+```
+
+
+# Unknown tag — falls back to plain text
+
+```nosuchlexer
+puts "hello"
+```

@@ -9,3 +9,11 @@ source "https://rubygems.org"
 
 gem "redcarpet", "3.6.1"
 gem "rouge", "3.30.0"
+
+# Rouge 3.x calls CGI.parse in Lexer.lookup_fancy, and Ruby 4.0 no longer
+# ships it: its lib/cgi.rb keeps escape/unescape only and points you at the
+# cgi gem or Bundler. Without this, any code block with no language tag —
+# including every indented one — raises NoMethodError under a modern TM_RUBY.
+# Rouge fixed this in 4.6.1, which needs Ruby >= 2.7; drop the pin and bump
+# rouge once the 2.6 floor goes.
+gem "cgi", "0.5.2"
