@@ -7,6 +7,23 @@
 # Rendering uses Redcarpet for GFM and Rouge for code highlighting. Both gems
 # come from TextMate's shared gem store (see tm/gems) — no Python, no pygments.
 
+require "rbconfig"
+
+if ENV["TM_RUBY"] &&
+   File.executable?(ENV["TM_RUBY"]) &&
+   File.realpath(RbConfig.ruby) != File.realpath(ENV["TM_RUBY"])
+  exec ENV["TM_RUBY"], __FILE__, *ARGV
+end
+
+# puts RUBY_VERSION
+# puts RbConfig.ruby
+# puts "TM_RUBY=#{ENV["TM_RUBY"].inspect}"
+# exit
+
+require "rubygems"
+gem "cgi"
+require "cgi"
+
 if ARGV.include?("--help")
   File.read(__FILE__).split("\n").grep(/^# /).each do |line|
     puts line[2..-1]
