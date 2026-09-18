@@ -22,9 +22,11 @@ TextMate::Gems.setup(name: "Markdown (GitHub)", gemfile: File.expand_path("../Ge
 
 require "redcarpet"
 require "rouge"
+require File.expand_path("../lib/relative_safe_links", __dir__)
 
 class RougeSmartyHTML < Redcarpet::Render::HTML
   include Redcarpet::Render::SmartyPants
+  include RelativeSafeLinks
 
   def block_code(code, language)
     lexer = Rouge::Lexer.find_fancy(language) || Rouge::Lexers::PlainText.new

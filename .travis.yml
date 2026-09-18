@@ -1,6 +1,7 @@
 script:
   - xmllint --valid *.plist */*.tm* >/dev/null
   - ruby -c */*/*.rb
+  - ruby Tests/relative_safe_links_test.rb
 addons:
   apt:
     packages:
