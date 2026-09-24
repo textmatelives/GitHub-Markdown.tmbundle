@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Accessibility Rotor: Strikethrough</string>
+	<key>scope</key>
+	<string>text.html.markdown markup.other.strikethrough</string>
+	<key>settings</key>
+	<dict>
+		<key>accessibilityRotor</key>
+		<dict>
+			<key>en</key>
+			<string>Strikethrough</string>
+			<key>zh-Hans</key>
+			<string>删除线</string>
+		</dict>
+		<key>accessibilityRotorExtent</key>
+		<string>run</string>
+		<key>accessibilityRotorOrder</key>
+		<integer>80</integer>
+		<key>accessibilityRotorTransformation</key>
+		<string>s/^~~|~~$//g;</string>
+	</dict>
+	<key>uuid</key>
+	<string>15F92436-3D64-597E-9B08-D8199D0B2AD6</string>
+</dict>
+</plist>
