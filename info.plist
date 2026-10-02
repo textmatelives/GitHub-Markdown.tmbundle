@@ -12,5 +12,13 @@
 	<string>Markdown (GitHub)</string>
 	<key>uuid</key>
 	<string>A9CF0E77-E848-417C-90F4-77E1231FF1B9</string>
+	<key>mainMenu</key>
+	<dict>
+		<key>items</key>
+		<array>
+			<string>753C77E7-AF57-415C-8D62-5D708DA91F00</string>
+			<string>D3E428FD-89F8-4A50-A1DF-249582631FC7</string>
+		</array>
+	</dict>
 </dict>
 </plist>
