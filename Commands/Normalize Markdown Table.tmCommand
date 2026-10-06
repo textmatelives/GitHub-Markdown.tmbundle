@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby -wEutf-8
+# Thin wrapper: real work lives in Support/lib/markdown_table.rb.
+$:.unshift ENV['TM_BUNDLE_SUPPORT']
+require 'lib/markdown_table'
+STDIN.set_encoding(Encoding::UTF_8)
+STDOUT.set_encoding(Encoding::UTF_8)
+input = STDIN.read
+if ENV['TM_SELECTED_TEXT'].to_s.empty?
+  # No selection: the whole document arrived via fallback input, so
+  # normalize the table around the cursor line, if any.
+  print MarkdownTable.normalize_at_cursor(input, ENV['TM_LINE_NUMBER'].to_i)
+else
+  print MarkdownTable.normalize(input)
+end</string>
+	<key>fallbackInput</key>
+	<string>document</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>name</key>
+	<string>Normalize Markdown Table</string>
+	<key>outputCaret</key>
+	<string>heuristic</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>replaceInput</string>
+	<key>scope</key>
+	<string>text.html.markdown</string>
+	<key>uuid</key>
+	<string>753C77E7-AF57-415C-8D62-5D708DA91F00</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>
