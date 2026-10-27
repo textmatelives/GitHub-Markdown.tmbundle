@@ -150,6 +150,21 @@ class RelativeSafeLinksTest < Minitest::Test
     )
   end
 
+  def test_images_follow_the_same_destination_policy_as_links
+    assert_equal %(<img src="shot.png" alt="shot">), @renderer.image("shot.png", nil, "shot")
+    assert_equal %(<img src="../img/a.png" alt="a" title="t">), @renderer.image("../img/a.png", "t", "a")
+    assert_equal %(<img src="https://example.com/a.png" alt="a">), @renderer.image("https://example.com/a.png", nil, "a")
+
+    ["javascript:alert(1)", "data:image/png;base64,AAAA", "file:///tmp/a.png", "//example.com/a.png", "", nil].each do |destination|
+      assert_nil @renderer.image(destination, nil, "a"), destination.inspect
+    end
+  end
+
+  def test_images_pointing_at_media_files_become_media_elements
+    assert_equal %(<video controls src="clip.mov" title="clip"></video>), @renderer.image("clip.mov", nil, "clip")
+    assert_equal %(<audio controls src="take.aiff"></audio>), @renderer.image("take.aiff", nil, "")
+  end
+
   private
 
   def assert_link(destination)
