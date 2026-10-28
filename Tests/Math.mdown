@@ -1,0 +1,44 @@
+Open in TextMate with the Markdown grammar: math below must be purple with
+gray dollar delimiters (Show Scope: markup.other.math.inline/block.markdown).
+
+# Should Match
+
+$L/E = ft / (r - i(1-t) - ft)$
+
+$x$
+
+$x$ and $y$
+
+$a\$b$
+
+$$2+2$$
+
+This prose must stay plain (regression: the closing $$ was once eaten by an
+embedded LaTeX include, flooding the rest of the document).
+
+$$
+y_i = \alpha x_i + \epsilon_i
+$$
+
+
+# Should Not Match
+
+$5 and $10
+
+cost $5 for lunch
+
+\$5
+
+`$x$` (code spans win over math)
+
+```
+$fenced$
+```
+
+
+# Known Limitation
+
+An unclosed $$ display opener floods to end of document (same accepted risk
+as an unclosed fenced code block). Kept last so it cannot swallow this file:
+
+$$

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array/>
+	<key>hideFromUser</key>
+	<true/>
+	<key>injectionSelector</key>
+	<string>L:(text.html.markdown - (markup.raw | markup.other.math))</string>
+	<key>name</key>
+	<string>Markdown (GitHub Math)</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>begin</key>
+			<string>(\$\$)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.math.begin.markdown</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>Display math spans one or more lines between $$ delimiters, mirroring GitHub rendering. Listed before inline math so $$..$$ is never eaten by the single-dollar rule. Deliberately no LaTeX include: nested patterns take precedence over end, and the LaTeX grammar has its own $$ rule that would eat our closing delimiter and flood the document.</string>
+			<key>end</key>
+			<string>(\$\$)</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.math.end.markdown</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>markup.other.math.block.markdown</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.math.markdown</string>
+				</dict>
+				<key>2</key>
+				<dict/>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.math.markdown</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>Inline math between single dollars, GitHub-style: the opening dollar needs a non-space after it and the closing dollar a non-space before it, so currency like $5 stays plain. A single match rule (not begin/end) so a stray dollar can never swallow the rest of the document.</string>
+			<key>match</key>
+			<string>(?&lt;![\\$])(\$)(?=\S)((?:\\.|[^$])+?)(?&lt;=\S)(\$)(?!\$)</string>
+			<key>name</key>
+			<string>markup.other.math.inline.markdown</string>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>text.html.markdown.github</string>
+	<key>uuid</key>
+	<string>57B1EB47-68A7-4EEC-9F56-EE0F8B4EBECD</string>
+</dict>
+</plist>
