@@ -24,6 +24,7 @@ require "redcarpet"
 require "rouge"
 require File.expand_path("../lib/relative_safe_links", __dir__)
 require File.expand_path("../lib/diagrams", __dir__)
+require File.expand_path("../lib/preview_style", __dir__)
 
 class RougeSmartyHTML < Redcarpet::Render::HTML
   include Redcarpet::Render::SmartyPants
@@ -77,6 +78,9 @@ def markdown(text)
   html << Diagrams.scripts(renderer.diagram_languages)
 end
 
-puts %{<style>#{Rouge::Themes::Github.render(scope: ".highlight")}
-#{MediaEmbeds::STYLE}</style>}
+# Code blocks follow the appearance: Rouge's GitHub theme in light, Gruvbox
+# (dark by default) under a dark appearance.
+puts PreviewStyle.tag(light: Rouge::Themes::Github.render(scope: ".highlight"),
+                      dark:  Rouge::Themes::Gruvbox.render(scope: ".highlight"),
+                      extra: MediaEmbeds::STYLE)
 puts markdown(ARGF.read)

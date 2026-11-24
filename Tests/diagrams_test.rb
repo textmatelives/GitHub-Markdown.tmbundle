@@ -28,6 +28,11 @@ class DiagramsTest < Minitest::Test
     assert_includes html, "mermaid.initialize("
   end
 
+  def test_mermaid_follows_the_colour_scheme_of_the_page
+    html = Diagrams.scripts(%w[mermaid])
+    assert_includes html, %q{window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "default"}
+  end
+
   def test_scripts_are_empty_when_no_diagram_was_rendered
     assert_equal "", Diagrams.scripts([])
     assert_equal "", Diagrams.scripts(%w[ruby])

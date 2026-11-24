@@ -14,7 +14,7 @@ module Diagrams
     "mermaid" => {
       css_class: "mermaid",
       script:    "https://cdn.jsdelivr.net/npm/mermaid@12.2.0/dist/mermaid.min.js",
-      init:      "mermaid.initialize({ startOnLoad: true });",
+      init:      %q{mermaid.initialize({ startOnLoad: true, theme: window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "default" });},
     },
   }.freeze
 

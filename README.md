@@ -7,6 +7,7 @@ Provides some [GitHub Flavoured Markdown](https://help.github.com/articles/githu
 - Support and highlight GitHub Flavoured Markdown strikethroughs, tables, references, checkboxes and italics
 - Preview embedded media: relative images, and `![](clip.mov)` / `![](take.mp3)` become playable video and audio; raw HTML such as `<video>`, `<audio>` and `<iframe>` passes through
 - Preview diagrams: a fenced ```` ```mermaid ```` block is drawn in the preview (the library is loaded from a CDN only when a document uses it; add other diagram languages in `Support/lib/diagrams.rb`)
+- The preview follows the app appearance: under a dark appearance the page, code blocks (Gruvbox) and mermaid diagrams switch to dark colours
 
 You can also use nicer fonts by installing the [GitHub Flavoured Markdown Font Settings bundle](https://github.com/mikemcquaid/GitHub-Markdown-Font-Settings.tmbundle).
 
