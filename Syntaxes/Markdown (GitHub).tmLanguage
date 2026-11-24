@@ -1586,6 +1586,48 @@
 				<key>1</key>
 				<dict>
 					<key>name</key>
+					<string>punctuation.definition.checkbox.begin.markdown.github</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.checkbox.end.markdown.github</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>GFM unchecked task box: a space or tab between brackets, then whitespace or end of line. The list bullet is outside this paragraph scope, so the rule matches the box itself. Empty [] is not a task marker. Listed before the [...] reference rule.</string>
+			<key>match</key>
+			<string>(\[)([ \t])(\])(?=[ \t]|$)</string>
+			<key>name</key>
+			<string>markup.checkbox.unchecked.markdown.github</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.checkbox.begin.markdown.github</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.checkbox.end.markdown.github</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>GFM checked task box [x] or [X], then whitespace or end of line. [✓] is not a GFM marker.</string>
+			<key>match</key>
+			<string>(\[)([xX])(\])(?=[ \t]|$)</string>
+			<key>name</key>
+			<string>markup.checkbox.checked.markdown.github</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
 					<string>punctuation.definition.string.begin.markdown.github</string>
 				</dict>
 				<key>2</key>
