@@ -1,4 +1,5 @@
 require "cgi"
+require File.expand_path("media_embeds", __dir__)
 
 # Redcarpet's :safe_links_only drops any link whose destination is not
 # "#…", "/…", "http://…", "https://…", "ftp://…" or "mailto:…" — the source
@@ -15,7 +16,8 @@ require "cgi"
 # and anything containing whitespace or control characters — browsers strip
 # those, so "java\tscript:" would otherwise slip through as a scheme.
 #
-# Images and autolinks are not overridden and keep Redcarpet's own policy.
+# Images get the same policy: the preview is where a relative ![](shot.png)
+# must work. Autolinks are not overridden and keep Redcarpet's own policy.
 module RelativeSafeLinks
   # These two mirror sd_autolink_issafe in redcarpet/autolink.c: a known
   # prefix followed by an alphanumeric character.
@@ -36,6 +38,12 @@ module RelativeSafeLinks
     end
 
     %(<a href="#{CGI.escapeHTML(destination)}"#{title_attribute}>#{content}</a>)
+  end
+
+  def image(destination, title, alt_text)
+    return nil unless safe_link_destination?(destination)
+
+    MediaEmbeds.tag(destination, title, alt_text)
   end
 
   private
