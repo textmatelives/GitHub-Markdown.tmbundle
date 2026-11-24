@@ -26,7 +26,7 @@
 			<key>comment</key>
 			<string>Display math spans one or more lines between $$ delimiters, mirroring GitHub rendering. Listed before inline math so $$..$$ is never eaten by the single-dollar rule. Deliberately no LaTeX include: nested patterns take precedence over end, and the LaTeX grammar has its own $$ rule that would eat our closing delimiter and flood the document.</string>
 			<key>end</key>
-			<string>(\$\$)</string>
+			<string>(\$\$)|^\s*$</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>1</key>
