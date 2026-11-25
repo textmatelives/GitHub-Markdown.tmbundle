@@ -30,7 +30,18 @@ class DiagramsTest < Minitest::Test
 
   def test_mermaid_follows_the_colour_scheme_of_the_page
     html = Diagrams.scripts(%w[mermaid])
-    assert_includes html, %q{window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "default"}
+    assert_includes html, %q{window.matchMedia("(prefers-color-scheme: dark)")}
+    assert_includes html, %q{theme: dark.matches ? "dark" : "default"}
+  end
+
+  def test_mermaid_redraws_when_the_colour_scheme_changes
+    html = Diagrams.scripts(%w[mermaid])
+    # The source is kept before mermaid replaces it with an SVG, and put back for the redraw
+    assert_includes html, %q{el.dataset.source = el.textContent}
+    assert_includes html, %q{dark.addEventListener("change"}
+    assert_includes html, %q{el.textContent = el.dataset.source}
+    assert_includes html, %q{el.removeAttribute("data-processed")}
+    assert_includes html, %q{mermaid.run({ nodes: blocks })}
   end
 
   def test_scripts_are_empty_when_no_diagram_was_rendered

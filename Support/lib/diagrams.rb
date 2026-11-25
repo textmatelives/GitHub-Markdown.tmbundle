@@ -10,11 +10,30 @@ require "cgi"
 # The scripts come from a CDN, the same way the base Markdown bundle loads
 # MathJax, so previews of diagrams need network access.
 module Diagrams
+  # Mermaid bakes the theme into the SVG it draws, so a page that follows the
+  # system appearance has to draw its diagrams again when that changes. The
+  # source of every block is kept before the first drawing replaces it, put
+  # back on a change and drawn with the other theme. The script is emitted
+  # after the content, so the blocks exist when it runs.
+  MERMAID_INIT = <<~JS.gsub(/\s+/, " ").strip.freeze
+    (function () {
+      var dark = window.matchMedia("(prefers-color-scheme: dark)");
+      var blocks = Array.prototype.slice.call(document.querySelectorAll("pre.mermaid"));
+      blocks.forEach(function (el) { el.dataset.source = el.textContent; });
+      mermaid.initialize({ startOnLoad: true, theme: dark.matches ? "dark" : "default" });
+      dark.addEventListener("change", function () {
+        blocks.forEach(function (el) { el.textContent = el.dataset.source; el.removeAttribute("data-processed"); });
+        mermaid.initialize({ startOnLoad: false, theme: dark.matches ? "dark" : "default" });
+        mermaid.run({ nodes: blocks });
+      });
+    })();
+  JS
+
   LIBRARIES = {
     "mermaid" => {
       css_class: "mermaid",
       script:    "https://cdn.jsdelivr.net/npm/mermaid@12.2.0/dist/mermaid.min.js",
-      init:      %q{mermaid.initialize({ startOnLoad: true, theme: window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "default" });},
+      init:      MERMAID_INIT,
     },
   }.freeze
 
