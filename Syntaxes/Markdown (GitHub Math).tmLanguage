@@ -13,8 +13,29 @@
 	<key>patterns</key>
 	<array>
 		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.math.begin.markdown</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.math.end.markdown</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>Display math on a single line, as one match rule so the closing $$ is required and nothing can run past the line. Listed first so it wins over the multi-line rule.</string>
+			<key>match</key>
+			<string>(\$\$)(?=\S)((?:\\.|[^$])+?)(?&lt;=\S)(\$\$)</string>
+			<key>name</key>
+			<string>markup.other.math.block.markdown</string>
+		</dict>
+		<dict>
 			<key>begin</key>
-			<string>(\$\$)</string>
+			<string>^\s*(\$\$)\s*$</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -24,9 +45,9 @@
 				</dict>
 			</dict>
 			<key>comment</key>
-			<string>Display math spans one or more lines between $$ delimiters, mirroring GitHub rendering. Listed before inline math so $$..$$ is never eaten by the single-dollar rule. Deliberately no LaTeX include: nested patterns take precedence over end, and the LaTeX grammar has its own $$ rule that would eat our closing delimiter and flood the document.</string>
+			<string>Display math across lines: the opening $$ must stand on a line of its own, so a $$ inside prose never opens a block (an earlier blank-line end made the paragraph swallow the next block). Listed before inline math so $$..$$ is never eaten by the single-dollar rule. Deliberately no LaTeX include: nested patterns take precedence over end, and the LaTeX grammar has its own $$ rule that would eat our closing delimiter and flood the document.</string>
 			<key>end</key>
-			<string>(\$\$)|^\s*$</string>
+			<string>(\$\$)</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>1</key>
