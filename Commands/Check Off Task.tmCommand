@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby -wEutf-8
+# Thin wrapper: real work lives in Support/lib/task_list.rb.
+$:.unshift ENV['TM_BUNDLE_SUPPORT']
+require 'lib/task_list'
+STDIN.set_encoding(Encoding::UTF_8)
+STDOUT.set_encoding(Encoding::UTF_8)
+raw  = STDIN.read.to_s
+nl   = raw[/\r?\n\z/]
+line = raw.sub(/\r?\n\z/, '')
+# TM_LINE_INDEX is UTF-8 bytes; Ruby 2+ indexes by character.
+col = TaskList.byte_col_to_char_col(line, ENV['TM_LINE_INDEX'].to_i)
+print TaskList.check_off(line, col)
+print nl if nl</string>
+	<key>input</key>
+	<string>line</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>name</key>
+	<string>Check Off Task</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>replaceInput</string>
+	<key>scope</key>
+	<string>text.html.markdown</string>
+	<key>tabTrigger</key>
+	<string>done</string>
+	<key>uuid</key>
+	<string>AB5E8028-A21D-4B69-A622-FF0AF12E2613</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>
